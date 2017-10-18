@@ -5,8 +5,6 @@ Created on Mon Oct 16 14:07:11 2017
 @author: Artur Carneiro 31724833
 """
 
-import pandas as pd
-
 
 
 def inicializarGrid():
@@ -125,6 +123,7 @@ def posicionar_sub(grid,linha,coluna,vertical):
         else:
             print('Posição ocupada')
 
+
 def check_pos_hor(grid,linha,coluna,size):
     cont = 0
     for l in range(size):
@@ -163,13 +162,26 @@ def imprimir_grid(grid):
          cont += 1
      print('\n')
 
-p = inicializarGrid()
+def atirar():
+    c = 0 #contador para o numero de vezes que o jogador vai atirar
+    while c < 20: 
+        linha = int(input("Insira a linha: "))
+        coluna = int(input("Insira a coluna: "))
 
+        if grid[linha][coluna] == ".":
+            print ("tiro na água")
+        elif grid[linha][coluna] == "P":
+            print("Porta-Aviões atingido!")
+        elif grid[linha][coluna] == "E":
+            print ("Encouraçado atingido!")
+        elif grid[linha][coluna] == "S":
+            print ("Submarino atingido!")
+        
+
+p = inicializarGrid()
+imprimir_grid(p)
 posicionar_porta_avioes(p,2,4,True)
 posicionar_encouracado(p,4,6,False)
 posicionar_cruzador(p,1,1,True)
 posicionar_sub(p,9,1,False)
 imprimir_grid(p)
-
-
-

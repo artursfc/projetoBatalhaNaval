@@ -23,7 +23,7 @@ def mostrar_menu():
         op = int(input("Digite sua escolha: "))
 
         if (op == 1):
-            main.inicializar_grid()
+            main.inicializarGrid()
         elif(op == 2):
             como_jogar = ('\n+-------------------------------------------------------------------+ \n'+
                           '> Após iniciar o jogo, será disponibilizado 20 tiros para o jogador - \n'+

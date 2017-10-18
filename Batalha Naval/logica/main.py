@@ -82,9 +82,7 @@ def check_pos_ver(grid,linha,coluna):
 #         print(i)
 #         cont += 1
 
-print(pd.DataFrame(p))
-posicionar_porta_avioes(p,5,9,True)
-posicionar_porta_avioes(p,9,6,False)
+
 
 
 

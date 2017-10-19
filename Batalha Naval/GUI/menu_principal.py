@@ -1,10 +1,3 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Wed Oct 18 16:44:43 2017
-
-@author: Artur
-"""
-
 from logica import main
 
 def mostrar_menu():
@@ -23,7 +16,7 @@ def mostrar_menu():
         op = int(input("Digite sua escolha: "))
 
         if (op == 1):
-            main.inicializarGrid()
+            main.initGame()
         elif(op == 2):
             como_jogar = ('\n+-------------------------------------------------------------------+ \n'+
                           '> Após iniciar o jogo, será disponibilizado 20 tiros para o jogador - \n'+

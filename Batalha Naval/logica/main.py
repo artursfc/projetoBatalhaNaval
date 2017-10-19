@@ -1,11 +1,5 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Mon Oct 16 14:07:11 2017
-
-@author: Artur Carneiro 31724833
-"""
-
-
+from GUI import menu_jogador
+import random
 
 def inicializarGrid():
     x = 10
@@ -22,9 +16,8 @@ def posicionar_porta_avioes(grid,linha,coluna,vertical):
                     print('Inválido. Fora da grid')
                  elif check_pos_ver(grid,linha,coluna,size) == True:
                         for i in range(5):
-                            grid[linha+i][coluna] = 'P'
-#                        return print(pd.DataFrame(p))
-                        return p
+                            grid[linha+i][coluna] = 'grid'
+                        return grid
                  else:
                         print('Posição ocupada')
             elif vertical == False:
@@ -33,9 +26,8 @@ def posicionar_porta_avioes(grid,linha,coluna,vertical):
                 else:
                     if check_pos_hor(grid,linha,coluna,size) == True:
                         for i in range(5):
-                            grid[linha][coluna+i] = 'P'
-#                       return print(pd.DataFrame(p))
-                        return p
+                            grid[linha][coluna+i] = 'grid'
+                        return grid
                     else:
                         print('Posição ocupada')
         else:
@@ -51,8 +43,7 @@ def posicionar_encouracado(grid,linha,coluna,vertical):
                  elif check_pos_ver(grid,linha,coluna,size) == True:
                         for i in range(4):
                             grid[linha+i][coluna] = 'E'
-#                        return print(pd.DataFrame(p))
-                        return p
+                        return grid
                  else:
                         print('Posição ocupada')
             elif vertical == False:
@@ -62,8 +53,7 @@ def posicionar_encouracado(grid,linha,coluna,vertical):
                     if check_pos_hor(grid,linha,coluna,size) == True:
                         for i in range(4):
                             grid[linha][coluna+i] = 'E'
-#                        return print(pd.DataFrame(p))
-                        return p
+                        return grid
                     else:
                         print('Posição ocupada')
         else:
@@ -78,8 +68,7 @@ def posicionar_cruzador(grid,linha,coluna,vertical):
                  elif check_pos_ver(grid,linha,coluna,size) == True:
                         for i in range(3):
                             grid[linha+i][coluna] = 'C'
-#                        return print(pd.DataFrame(p))
-                        return p
+                        return grid
                  else:
                         print('Posição ocupada')
             elif vertical == False:
@@ -89,8 +78,7 @@ def posicionar_cruzador(grid,linha,coluna,vertical):
                     if check_pos_hor(grid,linha,coluna,size) == True:
                         for i in range(3):
                             grid[linha][coluna+i] = 'C'
-#                        return print(pd.DataFrame(p))
-                        return p
+                        return grid
                     else:
                         print('Posição ocupada')
         else:
@@ -105,8 +93,7 @@ def posicionar_sub(grid,linha,coluna,vertical):
                  elif check_pos_ver(grid,linha,coluna,size) == True:
                         for i in range(2):
                             grid[linha+i][coluna] = 'S'
-#                        return print(pd.DataFrame(p))
-                        return p
+                        return grid
                  else:
                         print('Posição ocupada')
             elif vertical == False:
@@ -116,8 +103,7 @@ def posicionar_sub(grid,linha,coluna,vertical):
                     if check_pos_hor(grid,linha,coluna,size) == True:
                         for i in range(2):
                             grid[linha][coluna+i] = 'S'
-#                        return print(pd.DataFrame(p))
-                        return p
+                        return grid
                     else:
                         print('Posição ocupada')
         else:
@@ -148,7 +134,7 @@ def check_pos_ver(grid,linha,coluna,size):
     else:
         return True
 
-def imprimir_grid(grid):
+def imprimir_grid():
      cabeçalho = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J']
      print(0 ,'', cabeçalho)
      cont = 1
@@ -164,24 +150,39 @@ def imprimir_grid(grid):
 
 def atirar():
     c = 0 #contador para o numero de vezes que o jogador vai atirar
+    aux_l = 100
+    aux_c = 100
     while c < 20: 
         linha = int(input("Insira a linha: "))
         coluna = int(input("Insira a coluna: "))
+        while linha == aux_l and coluna == aux_c:
+            print('\nCuidado, você escolheu o mesmo local da ultima jogada')
+            linha = int(input('Insira a linha: '))
+            coluna = int(input('Insira a coluna: '))
 
         if grid[linha][coluna] == ".":
-            print ("tiro na água")
-        elif grid[linha][coluna] == "P":
-            print("Porta-Aviões atingido!")
+            print ("\nTiro na água!!!\n")
+            c += 1
+        elif grid[linha][coluna] == "grid":
+            print("\nPorta-Aviões atingido!!!\n")
+            c += 1
         elif grid[linha][coluna] == "E":
-            print ("Encouraçado atingido!")
+            print ("\nEncouraçado atingido!!!\n")
+            c += 1
         elif grid[linha][coluna] == "S":
-            print ("Submarino atingido!")
-        
+            print ("\nSubmarino atingido!!!\n")
+            c += 1
+        aux_l = linha
+        aux_c = coluna
 
-p = inicializarGrid()
-imprimir_grid(p)
-posicionar_porta_avioes(p,2,4,True)
-posicionar_encouracado(p,4,6,False)
-posicionar_cruzador(p,1,1,True)
-posicionar_sub(p,9,1,False)
-imprimir_grid(p)
+
+def initGame():
+    global grid
+    grid = inicializarGrid()
+    posicionar_porta_avioes(grid,random.randint(1,5),random.randint(1,5),True)
+    posicionar_encouracado(grid,random.randint(1,4),random.randint(1,4),False)
+    posicionar_cruzador(grid,random.randint(1,3),random.randint(1,3),True)
+    posicionar_sub(grid,random.randint(1,2),random.randint(1,2),False)
+    menu_jogador.mostrar_menu()
+    return grid
+    

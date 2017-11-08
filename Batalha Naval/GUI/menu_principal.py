@@ -29,3 +29,6 @@ def mostrar_menu():
             run_menu = False
         else:
             print ("Valor invalido")
+
+if __name__ == "__main__":
+    mostrar_menu()

@@ -16,7 +16,7 @@ def posicionar_porta_avioes(grid,linha,coluna,vertical):
                     print('Inválido. Fora da grid')
                  elif check_pos_ver(grid,linha,coluna,size) == True:
                         for i in range(5):
-                            grid[linha+i][coluna] = 'grid'
+                            grid[linha+i][coluna] = 'P'
                         return grid
                  else:
                         print('Posição ocupada')
@@ -26,7 +26,7 @@ def posicionar_porta_avioes(grid,linha,coluna,vertical):
                 else:
                     if check_pos_hor(grid,linha,coluna,size) == True:
                         for i in range(5):
-                            grid[linha][coluna+i] = 'grid'
+                            grid[linha][coluna+i] = 'P'
                         return grid
                     else:
                         print('Posição ocupada')
@@ -162,15 +162,19 @@ def atirar():
 
         if grid[linha][coluna] == ".":
             print ("\nTiro na água!!!\n")
+            grid[linha][coluna] = "*"
             c += 1
-        elif grid[linha][coluna] == "grid":
+        elif grid[linha][coluna] == "P":
             print("\nPorta-Aviões atingido!!!\n")
+            grid[linha][coluna] = "p"
             c += 1
         elif grid[linha][coluna] == "E":
             print ("\nEncouraçado atingido!!!\n")
+            grid[linha][coluna] = "e"
             c += 1
         elif grid[linha][coluna] == "S":
             print ("\nSubmarino atingido!!!\n")
+            grid[linha][coluna] = "s"
             c += 1
         aux_l = linha
         aux_c = coluna
@@ -179,10 +183,24 @@ def atirar():
 def initGame():
     global grid
     grid = inicializarGrid()
-    posicionar_porta_avioes(grid,random.randint(1,5),random.randint(1,5),True)
-    posicionar_encouracado(grid,random.randint(1,4),random.randint(1,4),False)
-    posicionar_cruzador(grid,random.randint(1,3),random.randint(1,3),True)
-    posicionar_sub(grid,random.randint(1,2),random.randint(1,2),False)
+    print(grid)
+    while "P" not in grid:
+        posicionar_porta_avioes(grid,random.randint(0,2),random.randint(0,2),bool(random.getrandbits(1)))
+        break
+    while "E" not in grid:
+        posicionar_encouracado(grid,random.andint(3,4),random.randint(3,4),bool(random.getrandbits(1)))
+        break
+    while "C" not in grid:
+        posicionar_cruzador(grid,random.randint(5,7),random.randint(5,7),bool(random.getrandbits(1)))
+        break
+    while "S" not in grid:
+        posicionar_sub(grid,random.randint(7,9),random.randint(7,9),bool(random.getrandbits(1)))
+        break
+    print(grid)
+
     menu_jogador.mostrar_menu()
+    print("\n" * 100)
     return grid
-    
+
+if __name__ == "__main__":
+    mostrar_menu()
